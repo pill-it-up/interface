@@ -1,2 +1,2 @@
-# interface
-Web Interface for PillItUp device
+# Interface
+Web interface for Pill It Up device
