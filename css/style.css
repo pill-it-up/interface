@@ -1,8 +1,71 @@
 #app {
     width: 100vw;
     height: 100vh;
+}
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.logo {
+    position: absolute;
+    top: calc(50% - 40vh);
+    left: calc(50% - 40vh);
+
+    height: 80vh;
+    width: 80vh;
+
+    background: white;
+    border: solid 1px #e95730;
+    border-radius: 50%;
+
+    z-index: 10;
+    transition: transform 1s ease;
+}
+
+.left-rect, .right-rect {
+    position: absolute;
+    top: 0;
+
+    height: 100vh;
+    width: 50vw;
+
+    transition: transform 1s ease;
+
+    z-index: 9;
+}
+
+.left-rect {
+    left: 0;
+    background: #e95730;
+}
+
+.right-rect {
+    right: 0;
+    background: #F59027;
+}
+
+.buttons {
+    position: absolute;
+
+    top: 5vh;
+    right: 5vw;
+
+    height: 90vh;
+    width: 50vw;
+
+    background: black;
+
+    opacity: 0;
+
+    transition: opacity 1s ease;
+}
+
+.buttons.active {
+    opacity: 1;
+}
+
+/** Transistions */
+.app-on {
+    transform: translateX(-50vw);
+}
+
+.app-on-right {
+    transform: translateX(50vw);
 }

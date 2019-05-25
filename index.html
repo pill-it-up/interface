@@ -7,11 +7,18 @@
     <title>Pill It Up!</title>
 
     <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/animate.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div id="app">
-        <h1>{{ title }}</h1>
+        <div class="left-rect" v-bind:class="{ 'app-on': started }"></div>
+        <div @click="startApp()" class="logo" v-bind:class="{ 'app-on': started }"></div>
+        <div class="right-rect" v-bind:class="{ 'app-on-right': started }"></div>
+
+        <div class="buttons" v-bind:class="{ 'active': activateButtons }">
+
+        </div>
     </div>
 
     <script src="js/vue.js"></script>
