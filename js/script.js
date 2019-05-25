@@ -1,39 +1,79 @@
 var app = new Vue({
-    el: '#app',
-    data: {
-        title: 'Pill It Up!',
-        started: false,
-        activateButtons: false,
+  el: "#app",
+  data: {
+    title: "Pill It Up!",
+    started: false,
+    clicked: false,
+    activateButtons: false,
+    currentPill: "¯\\_(ツ)_/¯",
+    cameraClicked: false,
+    loading: false
+  },
+  methods: {
+    updatePill: function() {
+      if (this.loading) {
+        return;
+      }
+
+      this.cameraClicked = true;
+      setTimeout(() => {
+        this.cameraClicked = false;
+        this.currentPill = "?";
+      }, 300);
+
+      this.loading = true;
+      axios
+        .get("http://127.0.0.1:5000/newpill")
+        .then(response => {
+          console.log(response.data);
+          this.currentPill = response.data.medication;
+        })
+        .catch(error => {
+          console.log(error);
+          this.currentPill = "?";
+        })
+        .finally(() => (this.loading = false));
     },
-    methods: {
-        updatePill: () => {
 
-        },
+    startApp: function() {
+      this.clicked = true;
+      setTimeout(() => {
+        this.clicked = false;
+      }, 300);
 
-        startApp: function () {
-            if (this.started) {
-                this.activateButtons = false;
+      if (this.started) {
+        axios
+          .get("http://127.0.0.1:5000/stop")
+          .then(response => {
+            console.log(response.data);
+            this.activateButtons = false;
 
-                const buttons = this.$el.querySelector('.buttons');
-                const startFalse = () => {
-                    this.started = false;
-                    buttons.removeEventListener('transitionend', startFalse);
-                }
+            setTimeout(() => {
+              this.started = false;
+            }, 200);
+          })
+          .catch(error => {
+            console.log(error);
+          });
 
-                buttons.addEventListener('transitionend', startFalse);
+        return;
+      }
 
-                return;
-            }
+      this.currentPill = "¯\\_(ツ)_/¯";
 
-            this.started = true;
+      axios
+        .get("http://localhost:5000/start")
+        .then(response => {
+          console.log(response.data);
+          this.started = true;
 
-            const transition = this.$el.querySelector('.logo');
-            const buttonsTrue = () => {
-                this.activateButtons = true;
-                transition.removeEventListener('transitionend', buttonsTrue);
-            }
-
-            transition.addEventListener('transitionend', buttonsTrue);
-        }
-    },
-})
+          setTimeout(() => {
+            this.activateButtons = true;
+          }, 500);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+  }
+});

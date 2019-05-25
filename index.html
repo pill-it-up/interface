@@ -7,21 +7,39 @@
     <title>Pill It Up!</title>
 
     <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/animate.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div id="app">
         <div class="left-rect" v-bind:class="{ 'app-on': started }"></div>
-        <div @click="startApp()" class="logo" v-bind:class="{ 'app-on': started }"></div>
+        <svg class="logo-ring" v-bind:class="{ 'loading': loading }">
+            <circle
+                stroke-width="5px"
+                fill="transparent"
+                r="40vh"
+                cx="41vh"
+                cy="41vh"
+            />
+        </svg>
+        <div @click="startApp()" class="logo" v-bind:class="{ 'app-on': started, 'click': clicked }">
+            <img class="image" src="img/logo.png" alt="" srcset="">
+            <img class="pill" src="img/pill.png" alt="" srcset="">
+            <img class="it" src="img/it.png" alt="" srcset="">
+            <img class="up" src="img/up.png" alt="" srcset="">
+        </div>
         <div class="right-rect" v-bind:class="{ 'app-on-right': started }"></div>
 
         <div class="buttons" v-bind:class="{ 'active': activateButtons }">
-
+            <div @click="updatePill()" class="camera" v-bind:class="{ 'click': cameraClicked }">
+                <img src="img/photo-camera.png" alt="">
+                <span>Conferir</span>
+            </div>
+            <div class="current-pill" >{{ currentPill }}</div>
         </div>
     </div>
 
     <script src="js/vue.js"></script>
+    <script src="js/axios.min.js"></script>
     <script src="js/script.js"></script>
 </body>
 </html>

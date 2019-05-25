@@ -1,71 +1,222 @@
 #app {
-    width: 100vw;
-    height: 100vh;
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  overflow: hidden;
 }
 
 .logo {
-    position: absolute;
-    top: calc(50% - 40vh);
-    left: calc(50% - 40vh);
+  position: absolute;
+  top: calc(50% - 40vh);
+  left: calc(50% - 40vh);
 
-    height: 80vh;
-    width: 80vh;
+  height: 80vh;
+  width: 80vh;
 
-    background: white;
-    border: solid 1px #e95730;
-    border-radius: 50%;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
-    z-index: 10;
-    transition: transform 1s ease;
+  z-index: 10;
+  transition: transform 1s ease, box-shadow 0.5s ease, background 2s ease;
 }
 
-.left-rect, .right-rect {
-    position: absolute;
-    top: 0;
+.logo-ring {
+  position: absolute;
+  top: calc(50% - 41vh);
+  left: calc(50% - 41vh);
 
-    height: 100vh;
-    width: 50vw;
+  height: 82vh;
+  width: 82vh;
+  transform: rotate(-90deg) translateY(-50vw);
 
-    transition: transform 1s ease;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
 
-    z-index: 9;
+.logo-ring.loading {
+  opacity: 1;
+}
+
+.logo-ring circle {
+  stroke: rgb(218, 140, 56);
+}
+
+.logo-ring.loading circle {
+  animation: dash 4s ease-in-out infinite;
+}
+
+@keyframes dash {
+  0%,
+  100% {
+    stroke-dasharray: 0 9999;
+    stroke-dashoffset: 0;
+  }
+  25%,
+  75% {
+    stroke-dasharray: 625 9999;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 0 9999;
+    stroke-dashoffset: -625;
+  }
+}
+
+.logo.click {
+  box-shadow: 0 0 0;
+}
+
+.logo.app-on {
+  background: rgb(255, 229, 201);
+}
+
+.logo > .image {
+  position: absolute;
+  top: 10%;
+  left: 18%;
+
+  height: 60%;
+
+  transform: rotateZ(45deg);
+  transition: transform 1s ease;
+}
+
+.logo.app-on > .image {
+  transform: rotateZ(0deg);
+}
+
+.logo > .pill {
+  position: absolute;
+  top: 37%;
+  left: 64%;
+
+  transition: all 1s ease;
+  transform: translateY(-50%);
+}
+
+.logo.app-on > .pill {
+  top: 25%;
+  left: 55%;
+}
+
+.logo > .it {
+  position: absolute;
+  top: 55%;
+  left: 53%;
+
+  transition: all 1s ease;
+  transform: translateY(-50%);
+}
+
+.logo.app-on > .it {
+  top: 50%;
+  left: 65%;
+}
+
+.logo > .up {
+  position: absolute;
+  top: 75%;
+  left: 35%;
+
+  transition: all 1s ease;
+  transform: translateY(-50%);
+}
+
+.logo.app-on > .up {
+  top: 75%;
+  left: 55%;
+}
+
+.left-rect,
+.right-rect {
+  position: absolute;
+  top: 0;
+
+  height: 100vh;
+  width: 50vw;
+
+  transition: transform 1s ease;
+
+  z-index: 9;
 }
 
 .left-rect {
-    left: 0;
-    background: #e95730;
+  left: 0;
+  background: #e95730;
 }
 
 .right-rect {
-    right: 0;
-    background: #F59027;
+  right: 0;
+  background: #f59027;
 }
 
 .buttons {
-    position: absolute;
+  position: absolute;
 
-    top: 5vh;
-    right: 5vw;
+  top: 5vh;
+  right: 5vw;
 
-    height: 90vh;
-    width: 50vw;
+  height: 90vh;
+  width: 50vw;
 
-    background: black;
+  opacity: 0;
 
-    opacity: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 
-    transition: opacity 1s ease;
+  transition: opacity 1s ease;
 }
 
 .buttons.active {
-    opacity: 1;
+  opacity: 1;
+}
+
+.buttons > div {
+  width: 100%;
+
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: 2.5rem;
+  font-weight: bold;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.buttons .current-pill {
+  height: 75px;
+  background: rgb(255, 229, 201);
+}
+
+.buttons .camera {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding-bottom: 1rem;
+  transition: box-shadow 0.5s ease;
+}
+
+.buttons .camera.click {
+  box-shadow: 0 0 0;
 }
 
 /** Transistions */
 .app-on {
-    transform: translateX(-50vw);
+  transform: translateX(-50vw);
 }
 
 .app-on-right {
-    transform: translateX(50vw);
+  transform: translateX(50vw);
 }
